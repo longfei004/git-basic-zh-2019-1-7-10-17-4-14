@@ -18,20 +18,20 @@ public class PracticeD {
     private Map<String, Integer> countSameElements(List<String> collection1) {
         //实现练习要求，并改写该行代码。
         Map<String, Integer> map = new HashMap<>();
-        AtomicReference<String> str = new AtomicReference<>("");
         collection1.forEach(it -> {
-            String regex = "^([a-zA-Z]+)\\W([0-9]+).*";
-            if(!Pattern.matches(regex, it)) {
-                map.put(it, map.containsKey(it) ? map.get(it) + 1 : 1);
-            } else {
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(it);
-                if (matcher.find()) {
-                    String key = matcher.group(1);
-                    String count = matcher.group(2);
-                    map.put(key, map.containsKey(key) ? map.get(key) + Integer.parseInt(count) : Integer.parseInt(count));
-                }
+            String strKey = "", strValue = "";
+            for (int i = 0; i < it.length(); i++) {
+                char charTemp = it.charAt(i);
+                if(charTemp >= 'a' && charTemp <= 'z')
+                    strKey += charTemp;
+                else if (charTemp >= '0' && charTemp <= '9')
+                    strValue += charTemp;
             }
+            int value = strValue.equals("") ? 1 : Integer.parseInt(strValue);
+            if (map.containsKey(strKey))
+                map.put(strKey, map.get(strKey) + value);
+            else
+                map.put(strKey, value);
         });
         return map;
     }
