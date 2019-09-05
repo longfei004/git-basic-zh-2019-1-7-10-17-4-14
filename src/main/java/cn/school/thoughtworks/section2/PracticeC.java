@@ -19,8 +19,11 @@ public class PracticeC {
             } else {
                 Pattern pattern = Pattern.compile(regex);
                 Matcher matcher = pattern.matcher(it);
-                if (matcher.find())
-                   map.put(matcher.group(1), map.containsKey(matcher.group(1)) ? map.get(matcher.group(1)) + Integer.parseInt(matcher.group(2)) : Integer.parseInt(matcher.group(2)));
+                if (matcher.find()) {
+                    String key = matcher.group(1);
+                    String count = matcher.group(2);
+                    map.put(key, map.containsKey(key) ? map.get(key) + Integer.parseInt(count) : Integer.parseInt(count));
+                }
             }
         });
         return map;
